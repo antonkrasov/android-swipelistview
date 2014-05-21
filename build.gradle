@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
         classpath 'com.github.dcendents:android-maven-plugin:1.0'
     }
 }
@@ -49,43 +49,43 @@ subprojects {
         compile 'com.android.support:appcompat-v7:19.0.+'
     }
 
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                repository(url: 'http://clinker.47deg.com/nexus/content/repositories/snapshots/') {
-                    authentication(userName: mavenDeployer, password: mavenDeployerPassword)
-                }
-
-                pom.project {
-                    packaging POM_PACKAGING
-                    description POM_DESCRIPTION
-                    url POM_URL
-
-                    scm {
-                        url POM_SCM_URL
-                        connection POM_SCM_CONNECTION
-                        developerConnection POM_SCM_DEV_CONNECTION
-                    }
-
-                    licenses {
-                        license {
-                            name POM_LICENCE_NAME
-                            url POM_LICENCE_URL
-                            distribution POM_LICENCE_DIST
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id POM_DEVELOPER_ID
-                            name POM_DEVELOPER_NAME
-                        }
-                    }
-                }
-
-            }
-        }
-    }
+//    uploadArchives {
+//        repositories {
+//            mavenDeployer {
+//                repository(url: 'http://clinker.47deg.com/nexus/content/repositories/snapshots/') {
+//                    authentication(userName: mavenDeployer, password: mavenDeployerPassword)
+//                }
+//
+//                pom.project {
+//                    packaging POM_PACKAGING
+//                    description POM_DESCRIPTION
+//                    url POM_URL
+//
+//                    scm {
+//                        url POM_SCM_URL
+//                        connection POM_SCM_CONNECTION
+//                        developerConnection POM_SCM_DEV_CONNECTION
+//                    }
+//
+//                    licenses {
+//                        license {
+//                            name POM_LICENCE_NAME
+//                            url POM_LICENCE_URL
+//                            distribution POM_LICENCE_DIST
+//                        }
+//                    }
+//
+//                    developers {
+//                        developer {
+//                            id POM_DEVELOPER_ID
+//                            name POM_DEVELOPER_NAME
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
 }
 
 
