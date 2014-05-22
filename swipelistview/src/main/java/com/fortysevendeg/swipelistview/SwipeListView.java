@@ -88,9 +88,14 @@ public class SwipeListView extends ListView {
     public final static String SWIPE_DEFAULT_FRONT_VIEW = "swipelist_frontview";
 
     /**
-     * Default id for back view
+     * Default id for back view if swipe from left
      */
-    public final static String SWIPE_DEFAULT_BACK_VIEW = "swipelist_backview";
+    public final static String SWIPE_DEFAULT_BACK_VIEW_LEFT = "swipelist_backview_left";
+
+    /**
+     * Default id for back view if swipe from left
+     */
+    public final static String SWIPE_DEFAULT_BACK_VIEW_RIGHT = "swipelist_backview_right";
 
     /**
      * Indicates no movement
@@ -114,7 +119,8 @@ public class SwipeListView extends ListView {
     private int touchSlop;
 
     int swipeFrontView = 0;
-    int swipeBackView = 0;
+    int swipeBackViewLeft = 0;
+    int swipeBackViewRight = 0;
 
     /**
      * Internal listener for common swipe events
@@ -131,13 +137,15 @@ public class SwipeListView extends ListView {
      * If you create a View programmatically you need send back and front identifier
      *
      * @param context        Context
-     * @param swipeBackView  Back Identifier
+     * @param swipeBackViewLeft  Back Identifier if swipe from left
+     * @param swipeBackViewRight  Back Identifier if swipe from right
      * @param swipeFrontView Front Identifier
      */
-    public SwipeListView(Context context, int swipeBackView, int swipeFrontView) {
+    public SwipeListView(Context context, int swipeBackViewLeft, int swipeBackViewRight, int swipeFrontView) {
         super(context);
         this.swipeFrontView = swipeFrontView;
-        this.swipeBackView = swipeBackView;
+        this.swipeBackViewLeft = swipeBackViewLeft;
+        this.swipeBackViewRight = swipeBackViewRight;
         init(null);
     }
 
@@ -189,21 +197,24 @@ public class SwipeListView extends ListView {
             swipeDrawableChecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableChecked, 0);
             swipeDrawableUnchecked = styled.getResourceId(R.styleable.SwipeListView_swipeDrawableUnchecked, 0);
             swipeFrontView = styled.getResourceId(R.styleable.SwipeListView_swipeFrontView, 0);
-            swipeBackView = styled.getResourceId(R.styleable.SwipeListView_swipeBackView, 0);
+            swipeBackViewLeft = styled.getResourceId(R.styleable.SwipeListView_swipeBackViewLeft, 0);
+            swipeBackViewRight = styled.getResourceId(R.styleable.SwipeListView_swipeBackViewRight, 0);
         }
 
-        if (swipeFrontView == 0 || swipeBackView == 0) {
+        if (swipeFrontView == 0 || swipeBackViewLeft == 0 || swipeBackViewRight == 0) {
             swipeFrontView = getContext().getResources().getIdentifier(SWIPE_DEFAULT_FRONT_VIEW, "id", getContext().getPackageName());
-            swipeBackView = getContext().getResources().getIdentifier(SWIPE_DEFAULT_BACK_VIEW, "id", getContext().getPackageName());
+            swipeBackViewLeft = getContext().getResources().getIdentifier(SWIPE_DEFAULT_BACK_VIEW_LEFT, "id", getContext().getPackageName());
+            swipeBackViewRight = getContext().getResources().getIdentifier(SWIPE_DEFAULT_BACK_VIEW_RIGHT, "id", getContext().getPackageName());
 
-            if (swipeFrontView == 0 || swipeBackView == 0) {
-                throw new RuntimeException(String.format("You forgot the attributes swipeFrontView or swipeBackView. You can add this attributes or use '%s' and '%s' identifiers", SWIPE_DEFAULT_FRONT_VIEW, SWIPE_DEFAULT_BACK_VIEW));
+            if (swipeFrontView == 0 || swipeBackViewLeft == 0 || swipeBackViewRight == 0) {
+                throw new RuntimeException(String.format("You forgot the attributes swipeFrontView or swipeBackViewLeft, swipeBackViewRight. You can add this attributes or use '%s' and '%s', '%s' identifiers",
+                        SWIPE_DEFAULT_FRONT_VIEW, SWIPE_DEFAULT_BACK_VIEW_LEFT, SWIPE_DEFAULT_BACK_VIEW_RIGHT));
             }
         }
 
         final ViewConfiguration configuration = ViewConfiguration.get(getContext());
         touchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
-        touchListener = new SwipeListViewTouchListener(this, swipeFrontView, swipeBackView);
+        touchListener = new SwipeListViewTouchListener(this, swipeFrontView, swipeBackViewLeft, swipeBackViewRight);
         if (swipeAnimationTime > 0) {
             touchListener.setAnimationTime(swipeAnimationTime);
         }
