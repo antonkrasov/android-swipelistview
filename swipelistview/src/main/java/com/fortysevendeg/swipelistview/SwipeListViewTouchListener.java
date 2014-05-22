@@ -596,6 +596,14 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
         } else {
             if (swap) {
                 moveTo = swapRight ? (int) (viewWidth - rightOffset) : (int) (-viewWidth + leftOffset);
+
+                if (swapRight) {
+                    backViewLeft.setVisibility(View.GONE);
+                    backViewRight.setVisibility(View.VISIBLE);
+                } else {
+                    backViewLeft.setVisibility(View.VISIBLE);
+                    backViewRight.setVisibility(View.GONE);
+                }
             }
         }
 
