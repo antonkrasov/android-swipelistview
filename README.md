@@ -1,4 +1,4 @@
-__This fork added an ability to setup different back views if we swipe from left or from right, here is demo: __
+This fork added an ability to setup different back views if we swipe from left or from right, here is demo: 
 [Demo Video](https://github.com/antonkrasov/android-swipelistview)
 
 SwipeListView ([Play Store Demo][1])
